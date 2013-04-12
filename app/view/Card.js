@@ -12,6 +12,10 @@ Ext.define('PinterestStyle.view.Card', {
 		 cls: 'redBG',
 		layout : 'card',
 		items : [{
+		    xtype : 'titlebar',
+	    title : 'Tap on Image',
+	    docked : 'top'
+	},{
 			xtype : 'panel',
 			docked : 'top',
 			html : "<img width='320px'  id='image1' src='images/pinterest.png'/>",
