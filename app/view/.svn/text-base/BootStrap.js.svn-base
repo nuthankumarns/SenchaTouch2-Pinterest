@@ -1,0 +1,23 @@
+/**
+ * @author 진우 김
+ */
+/**
+ * @author 진우 김
+ */
+Ext.define('CognectTeacher.view.BootStrap', {
+			// extend: 'Ext.navigation.View',
+			// extend:'Ext.container',
+			xtype : 'mainboot',
+			id : 'mainbootid',
+			requires : ['CognectTeacher.view.MainTemp',
+					'CognectTeacher.view.Main'],
+
+			config : {
+				// navigationBar: false,
+				// autoDestroy: false,
+
+				items : [{
+							xtype : 'card'
+						}]
+			}
+		});

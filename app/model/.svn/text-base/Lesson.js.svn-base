@@ -1,0 +1,9 @@
+Ext.define('CognectTeacher.model.Lesson', {
+			extend : 'Ext.data.Model',
+
+			config : {
+				fields : ['lesson_activity_name'
+
+				]
+			}
+		});

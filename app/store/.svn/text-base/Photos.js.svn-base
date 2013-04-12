@@ -1,0 +1,13 @@
+Ext.define('CognectTeacher.store.Photos', {
+
+			extend : 'Ext.data.Store',
+
+			requires : ['CognectTeacher.model.Photos'],
+
+			config : {
+				model : 'CognectTeacher.model.Photos',
+				autoLoad : true,
+				storeId : 'Photos',
+				pageSize : 1000
+			}
+		});

@@ -1,0 +1,12 @@
+/**
+ * @author 진우 김
+ */
+Ext.define('CognectTeacher.model.Thumb', {
+			extend : 'Ext.data.Model',
+
+			config : {
+				fields : ['thumb'
+
+				]
+			}
+		});

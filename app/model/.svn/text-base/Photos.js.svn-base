@@ -1,0 +1,31 @@
+Ext.define('CognectTeacher.model.Photos', {
+			extend : 'Ext.data.Model',
+
+			config : {
+				fields : [{
+							name : 'id',
+							type : 'int'
+						}, // Every model must start with an id of type int
+						{
+							name : 'name',
+							type : 'string'
+						}// bools, floats, objects and arrays also supported
+				],
+
+				validations : [{
+							name : 'name',
+							type : 'length',
+							min : 4,
+							message : 'validation message'
+						}],
+
+				proxy : {
+					type : 'sqlitestorage',
+					dbConfig : {
+						tablename : 'photos',
+						dbConn : app.util.InitSQLite.getConnection()
+					}
+				}
+			}
+
+		});

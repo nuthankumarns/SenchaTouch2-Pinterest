@@ -1,0 +1,9 @@
+Ext.define('CognectTeacher.model.Cognect', {
+			extend : 'Ext.data.Model',
+
+			config : {
+				fields : ['class_name'
+
+				]
+			}
+		});

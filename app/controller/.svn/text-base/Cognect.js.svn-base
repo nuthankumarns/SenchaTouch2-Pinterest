@@ -1,0 +1,480 @@
+/**
+ * @author 진우 김
+ */
+Ext
+		.define(
+				'CognectTeacher.controller.Cognect',
+				{
+					extend : 'Ext.app.Controller',
+					// requires:['CognectTeacher.store.Class'],
+
+					// This controller is responsible for responding to events
+					// that occur within the application itself. This is the
+					// single controller for this MVC application. The 'refs'
+					// config object is an assignment of references for easy
+					// access to key components of the application.
+					//
+					config : {
+						refs : {
+							main : 'mainview',
+							// editButton : '#moreButton',
+							cognect : 'cognect',
+							classes : 'classes',
+							lessons : 'lessons',
+							showContact : 'app_detail_show',
+							editContact : 'app_detail_edit',
+							// saveButton : '#sendButton',
+							navigateNext : '#content',
+							Camera : '#CameraButton',
+
+							capture : '#capture'
+
+						},
+
+						// The control object provides a mapping, according to
+						// the Sencha Touch 2.0 documentation,
+						// of Controller functions that should be called
+						// whenever certain Component events are fired.
+						//
+						control : {
+							main : {
+								push : 'onMainPush',
+								pop : 'onMainPop'
+							},
+							editButton : {
+								tap : 'onContactEdit'
+							},
+							cognect : {
+								itemtap : 'onClassSelect'
+							},
+							classes : {
+								itemtap : 'onLessonSelect'
+							},
+							lessons : {
+								itemtap : 'onSubjectSelect'
+							},
+							saveButton : {
+								tap : 'onContactSave'
+							},
+							editContact : {
+								change : 'onContactChange'
+							},
+							showContact : {
+								touchstart : 'onImageTouchStart'
+							},
+							Camera : {
+								handler : 'loadCamera'
+							},
+
+							capture : {
+								tap : 'saveCapturedImages'
+							}
+
+						}
+					},
+
+					/**
+					 * Called when any button in these view is tapped
+					 */
+					tapHandler : function(button) {
+						console.log('cameraview')
+					},
+					loadCamera : function(a, b) {
+						console.log('camera')
+					},
+					toSave : function(a, b) {
+						console.log(this);
+					},
+
+					onImageTouchStart : function(a, b) {
+
+						// this.onContactEdit();
+						// this.showSaveButton();
+						// console.log(this)
+					},
+
+					onMainPush : function(view, item) {
+						if (item.xtype == 'classes') {
+							Ext.getCmp('homeButton').hide()
+						}
+
+						/*
+						 * if (item.xtype == "app_detail_show") {
+						 * this.getContacts().deselectAll();
+						 * 
+						 * this.showEditButton(); } else {
+						 * this.hideEditButton(); }
+						 */
+					},
+
+					onMainPop : function(view, item) {
+						this.hideCapture();
+						//this.deSelect();
+						console.log(item.xtype)
+						if (item.xtype == 'classes') {
+							Ext.getCmp('homeButton').show()
+						}
+						// console.log(this)
+						// this.showSaveButton();
+						/*
+						 * if (item.xtype == "app_detail_edit") {
+						 * this.showEditButton(); } else {
+						 * this.hideEditButton(); }
+						 */
+						// console.log(item.xtype)
+						/*
+						 * if (item.xtype == "app_detail_save") {
+						 * console.log('edit') this.showSaveButton(); } else {
+						 * this.hideSaveButton(); }
+						 */
+					},
+					deSelect : function() {
+						this.getList().deselectAll();
+					},
+
+					onClassSelect : function(list, index, node, record) {
+
+						var tmpId = {
+							teacher_id : '1',
+							org_id : '1'
+						// album_id : record.data.albumID
+						};
+						/**
+						 * Dynamically generating the store by appending the url
+						 * parameters
+						 * 
+						 * @var tmpIds
+						 */
+						// ?album_id=1
+						// console.log(CognectTeacher.store.Class)
+						Ext.getStore('Class').getProxy().setExtraParams(tmpId);
+						Ext.getStore('Class').load();
+						// var editButton = this.getEditButton();
+
+						if (!this.showClass) {
+							this.showClass = Ext
+									.create('CognectTeacher.view.teacher.Class');
+						}
+
+						// Bind the record onto the show contact view
+						this.showClass.setRecord(record);
+
+						// Push the show contact view into the navigation view
+						this.getMain().push(this.showClass);
+
+					},
+					onLessonSelect : function(list, index, node, record) {
+						// console.log(this);
+						// ?teacher_id=1&org_id=1
+						// Ext.getCmp('capture').hide()
+						var tmpId = {
+							teacher_id : '1',
+							org_id : '1'
+						// album_id : record.data.albumID
+						};
+						/**
+						 * Dynamically generating the store by appending the url
+						 * parameters
+						 * 
+						 * @var tmpIds
+						 */
+						// ?album_id=1
+						// console.log(CognectTeacher.store.Class)
+						Ext.getStore('Lesson').getProxy().setExtraParams(tmpId);
+						Ext.getStore('Lesson').load();
+						// var editButton = this.getEditButton();
+
+						if (!this.showContact) {
+							this.showContact = Ext
+									.create('CognectTeacher.view.teacher.Lesson');
+						}
+
+						// Bind the record onto the show contact view
+						this.showContact.setRecord(record);
+
+						// Push the show contact view into the navigation view
+						this.getMain().push(this.showContact);
+
+					},
+					onSubjectSelect : function(list, index, node, record) {
+						console.log(this)
+
+						this.showCapture();
+						// var editButton = this.getEditButton();
+
+						if (!this.showContact) {
+							this.showContact = Ext
+									.create('CognectTeacher.view.teacher.Activity');
+						}
+
+						// Bind the record onto the show contact view
+						this.showContact.setRecord(record);
+
+						// Push the show contact view into the navigation view
+						this.getMain().push(this.showContact);
+
+					},
+
+					onContactEdit : function() {
+						console.log(this);
+
+						var currentRecord = this.getShowContact().getRecord();
+
+						console.log(currentRecord.data);
+
+						if (!this.editContact) {
+							this.editContact = Ext
+									.create(
+											'Navigate.view.appdetail.Edit',
+											{
+												application : currentRecord.data.appName
+											});
+						} else {
+							console.log('*** setting application name ***');
+							console.log('Application name is: '
+									+ currentRecord.data.appName);
+
+							this.editContact
+									.setApplication(currentRecord.data.appName);
+						}
+
+						// Bind the record onto the edit contact view
+						this.editContact.setRecord(currentRecord);
+
+						this.getMain().push(this.editContact);
+					},
+
+					onContactChange : function() {
+						this.showSaveButton();
+					},
+
+					onContactSave : function(list, index, node, record) {
+						console.log(this)
+						// this.getMain().push(this.navigateSave);
+
+						if (!this.navigateSave) {
+							this.navigateSave = Ext
+									.create('Navigate.view.appdetail.Save');
+						}
+
+						// Bind the record onto the show contact view
+						this.navigateSave.setRecord(record);
+
+						// Push the show contact view into the navigation view
+						this.getMain().push(this.navigateSave);
+						this.hideSaveButton();
+						/*
+						 * var record = this.getEditContact().saveRecord();
+						 * 
+						 * this.getShowContact().updateRecord(record);
+						 * 
+						 * var containerItems =
+						 * this.getEditContact().getItems(); var theFormPanel =
+						 * containerItems.items[0];
+						 * 
+						 * theFormPanel .submit({ url : 'postUser.php', method :
+						 * 'POST', success : function(f, r) {
+						 * console.log(r.msg); Ext.Msg .alert( 'Success',
+						 * 'Thanks! Your message was successfully transmitted.',
+						 * Ext.emptyFn); }, failure : function(f, r) {
+						 * console.log(r.msg); Ext.Msg .alert( 'Failure',
+						 * 'Sorry! Your message was not sent, please check all
+						 * fields for values.', Ext.emptyFn); } });
+						 */
+						// this.getMain().pop();
+					},
+
+					showCapture : function() {
+						var Capture = this.getCapture();
+
+						if (!Capture.isHidden()) {
+							return;
+						}
+
+						this.hideCapture();
+
+						Capture.show();
+					},
+
+					hideCapture : function() {
+						var Capture = this.getCapture();
+
+						if (Capture.isHidden()) {
+							return;
+						}
+
+						Capture.hide();
+					},
+
+					showSaveButton : function() {
+						var saveButton = this.getSaveButton();
+
+						if (!saveButton.isHidden()) {
+							return;
+						}
+
+						saveButton.show();
+					},
+
+					hideSaveButton : function() {
+						var saveButton = this.getSaveButton();
+
+						if (saveButton.isHidden()) {
+							return;
+						}
+
+						saveButton.hide();
+					},
+
+					saveCapturedImages : function(record) {
+
+						console.log(record)
+						// console.log(this.getActiveItem())
+						// console.log(navigator.camera.getPicture)
+					//	store = Ext.getStore('Photos')
+						// console.log(entry.fullPath)
+						
+						/*  var imageObject = { 'name' :
+						  "http://192.168.1.8/~hanulgom/services/images/5.png" };
+						  console.log(imageObject) 
+						  store = Ext.getStore('Photos'); 
+						 
+						 //console.log(json.stringify(store))
+						  store.add(imageObject); 
+						  store.sync();
+						  console.log(store) 
+						  debugger;*/
+						 
+						/*
+						 * store = Ext.getStore('Photos') var testObject = {
+						 * 'name' :
+						 * "nuthan" }; //
+						 * Put the object into storage
+						 * /*localStorage.setItem('testObject', JSON
+						 * .stringify(testObject)); // Retrieve the object from
+						 * storage var retrievedObject = localStorage
+						 * .getItem('testObject');
+						 * 
+						 * console.log('retrievedObject: ', JSON
+						 * .parse(retrievedObject));
+						 */
+						/*
+						 * store.add(testObject); store.sync(); //
+						 * console.log(store) //
+						 * console.log(json.stringify(store)) debugger;
+						 */
+						navigator.camera.getPicture(onSuccess, this.onFail, {
+							quality : 50,
+							destinationType : Camera.DestinationType.FILE_URI,
+							sourceType : Camera.PictureSourceType.CAMERA
+						});
+
+						function onSuccess(imageURI) {
+
+							movePic(imageURI);
+
+							// record.set(editPerson.getValues());
+
+							// validate
+							/*
+							 * errors = record.validate(); if(!errors.isValid()) { //
+							 * output errors var msg = 'Please correct the
+							 * following errors: <ul>';
+							 * 
+							 * for(var i = 0; i < errors.items.length; i++) msg += '<li>' +
+							 * errors.items[i].getMessage() + '</li>'; msg += '</ul>';
+							 * 
+							 * Ext.Msg.alert('Error', msg); return; }
+							 */
+
+							// if(record.phantom) store.add(record);
+							// store.sync();
+						}
+						function movePic(file) {
+							window.resolveLocalFileSystemURI(file,
+									resolveOnSuccess, resOnError);
+						}
+
+						// Callback function when the file system uri has been
+						// resolved
+						function resolveOnSuccess(entry) {
+							var d = new Date();
+							var n = d.getTime();
+							// new file name
+							var newFileName = n + ".jpg";
+							var myFolderApp = "CognectTemp";
+
+							window.requestFileSystem(
+									LocalFileSystem.PERSISTENT, 0, function(
+											fileSys) {
+										// The folder is created if doesn't
+										// exist
+										fileSys.root.getDirectory(myFolderApp,
+												{
+													create : true,
+													exclusive : false
+												}, function(directory) {
+													entry.moveTo(directory,
+															newFileName,
+															successMove,
+															resOnError);
+												}, resOnError);
+									}, resOnError);
+						}
+
+						// Callback function when the file has been moved
+						// successfully - inserting the complete path
+						function successMove(entry) {
+							store = Ext.getStore('Photos')
+							console.log(entry.fullPath)
+							var imageObject = {
+								'name' : entry.fullPath
+							};
+							console.log(imageObject)
+							store = Ext.getStore('Photos');
+							// console.log(json.stringify(store))
+							store.add(imageObject);
+							store.sync();
+							console.log(store)
+							// I do my insert with "entry.fullPath" as for the
+							// path
+						}
+
+						function resOnError(error) {
+							console.log(error.code);
+						}
+
+						// console.log(imageURI)
+					},
+					onSuccess : function(imageURI) {
+						console.log('nuthan')
+						var options = new FileUploadOptions();
+						console.log(options)
+						console.log(imageURI)
+						var image = document.getElementById('myImage');
+						image.src = imageURI;
+						console.log(image.src)
+					},
+					onFail : function(message) {
+						console.log(message)
+					},
+					goToHome : function(view, list, index, node, record) {
+						console.log('home')
+						// console.log(this.showMain.id)
+						Ext.getCmp('mainid').destroy();
+
+						// Ext.getCmp('cardLayout').show();
+						this.pnl = Ext.create('CognectTeacher.view.Card');
+						// Ext.getCmp('maintempid').hide();
+						Ext.Viewport.add(this.pnl)
+						// this.pnl =
+						// Ext.create('CognectTeacher.view.BootStrap');
+						// this.hideHomeButton();
+						// this.pnl.getRecord(record);
+						// console.log(this.pnl)
+						// Push the show contact view into the navigation view
+						// this.getMain().pop();
+
+						// Ext.getCmp('cardLayout').show();
+					}
+				});

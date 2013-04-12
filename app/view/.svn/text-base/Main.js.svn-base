@@ -1,0 +1,54 @@
+/**
+ * @author 진우 김
+ */
+Ext.define('CognectTeacher.view.Main', {
+			extend : 'Ext.navigation.View',
+			xtype : 'mainview',
+			id : 'mainid',
+
+			requires : ['CognectTeacher.view.teacher.Cognect',
+					'CognectTeacher.view.teacher.Class',
+					'CognectTeacher.view.teacher.Lesson',
+					'CognectTeacher.view.teacher.Camera'],
+
+			config : {
+				autoDestroy : false,
+
+				/*
+				 * tabBar : { docked : 'bottom', width : '5em', layout : { pack :
+				 * 'center', align : 'center' }, docked : 'bottom' },
+				 */
+				navigationBar : {
+					ui : 'sencha',
+					items : [{
+								xtype : 'button',
+								id : 'homeButton',
+								text : 'Home',
+								align : 'left',
+								// hidden: true,
+								hideAnimation : Ext.os.is.Android ? false : {
+									type : 'fadeOut',
+									duration : 200
+								},
+								showAnimation : Ext.os.is.Android ? false : {
+									type : 'fadeIn',
+									duration : 200
+								},
+								handler : function() {
+									Ext.getCmp('mainid').destroy();
+
+									// Ext.getCmp('cardLayout').show();
+									this.pnl = Ext
+											.create('CognectTeacher.view.Card');
+									// Ext.getCmp('maintempid').hide();
+									Ext.Viewport.add(this.pnl)
+
+								}
+							}]
+				},
+
+				items : [{
+							xtype : 'cognect'
+						}]
+			}
+		});

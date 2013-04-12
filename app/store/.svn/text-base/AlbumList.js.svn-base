@@ -1,0 +1,24 @@
+/**
+ * @author 진우 김
+ */
+
+Ext.define('CognectParent.store.AlbumList', {
+			extend : 'Ext.data.Store',
+
+			requires : ['CognectParent.model.AlbumList'],
+
+			config : {
+				autoLoad : true,
+				model : 'CognectParent.model.AlbumList',
+				storeId : 'MyJsonStore',
+				proxy : {
+					type : 'ajax',
+					url : CognectParent.config.host + 'api_albums.php',
+					// url:parent.config.Baseurl+'api_albums.php',
+
+					reader : {
+						type : 'json'
+					}
+				}
+			}
+		});

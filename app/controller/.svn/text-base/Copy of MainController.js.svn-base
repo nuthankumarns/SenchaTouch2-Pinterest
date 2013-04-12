@@ -1,0 +1,32 @@
+/**
+ * @author 진우 김
+ */
+Ext.define('CognectTeacher.controller.MainController', {
+			extend : 'Ext.app.Controller',
+
+			config : {
+				refs : {
+					homeButton : '#home'
+					// home : '#home',
+					// main:'#mainview #maintemp',
+
+				},
+				control : {
+					homeButton : {
+						tap : 'returnHome'
+					},
+					'button[action=home]' : {
+						tap : 'returnHome'
+					}
+
+				}
+			},
+			returnHome : function() {
+				var paneltab = Ext.create('CognectTeacher.view.Card');
+				Ext.getCmp('mainteacherview').hide();
+				// Ext.getCmp('mainteachertemp').destroy();
+				Ext.Viewport.add(paneltab);
+
+			}
+
+		})

@@ -1,0 +1,105 @@
+Ext.define("CognectParent.view.Main", {
+
+	extend : 'Ext.Panel',
+	requires : ['Ext.Img'],
+
+	config : {
+
+		height : '480px',
+		id : 'HomePageView',
+		style : 'background-color:white;',
+		// width : '320px',
+		layout : {
+			type : 'hbox'
+			// pack:'center'
+		},
+		items : [{
+			xtype : 'container',
+			title : 'LeftMenuView',
+
+			height : '430px',
+			left : '8px',
+			top : '25px',
+			ui : '',
+			width : '98px',
+			layout : {
+				type : 'vbox'
+			},
+			items : [{
+				xtype : 'image',
+				title : 'community',
+				height : '98px',
+				html : ' <img src="images/community.png" height="98";width="98">',
+				itemId : 'myimage7',
+				width : '98px',
+				src : 'http:'
+			}, {
+				xtype : 'image',
+				title : 'notice',
+				height : '98px',
+				html : ' <img src="images/notice.png" height="98";width="98">',
+				top : '103px',
+				width : '98px',
+				itemId : 'notice'
+			}, {
+				xtype : 'image',
+				height : '98px',
+				html : ' <img src="images/supporters.png" height="98";width="98">',
+				top : '206px',
+				width : '98px',
+				itemId : 'supporters'
+			}, {
+				xtype : 'image',
+				height : '98px',
+				html : ' <img src="images/mom.png" height="98";width="98">',
+				top : '309px',
+				width : '98px',
+				itemId : 'momspage'
+			}]
+		},
+				/*
+				 * { xtype: 'component', bottom: '10px', height: '30px', html:
+				 * 'hello Kids', left:'0px', right: '0px', style: 'font: bold
+				 * 20px
+				 * Verdana;color:white;align:center;text-align:center;text-shadow:-1px1px
+				 * #000000;text-transform:uppercase;', width: '200px' },
+				 */
+
+				{
+					xtype : 'container',
+					title : 'MainImageView',
+					height : '430px',
+					left : '111px',
+					top : '25px',
+					width : '200px',
+					items : [{
+						xtype : 'list',
+						height : '407px',
+						itemId : 'mylist',
+						// id : 'mylist',
+						top : '0px',
+						width : '200px',
+						id : 'kidCarousel',
+						scrollable : {
+							direction : 'horizontal',
+							indicators : false
+						},
+						inline : {
+							wrap : false
+						},
+
+						// bounce: false,
+
+						itemTpl : [
+								'<div style="margin-left:-15px; margin-top:-12px; width:200px; height:407px;">',
+								'<img src="'
+										+ CognectParent.config.host
+										+ '/images/kids/kid_profile_photo/{kid_photo}" height="407px" width="200px">',
+								'</div>'],
+						store : 'HomeStore'
+
+					}]
+
+				}]
+	}
+});

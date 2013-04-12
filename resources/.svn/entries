@@ -1,0 +1,53 @@
+10
+
+dir
+17
+http://10.73.0.57/svn/Cognect/CognectApp/www/resources
+http://10.73.0.57/svn/Cognect
+
+
+
+2012-11-27T07:25:32.457482Z
+17
+rs-svn
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+c1438dc5-16f7-4953-ae06-1b222ce3fffd
+
+
+
+
+
+
+0
+
+css
+dir
+
+icons
+dir
+
+images
+dir
+
+loading
+dir
+
+sass
+dir
+
+startup
+dir
+

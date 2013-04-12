@@ -1,0 +1,19 @@
+/**
+ * @author 진우 김
+ */
+
+Ext.define('CognectParent.model.AlbumList', {
+			extend : 'Ext.data.Model',
+
+			config : {
+				fields : [{
+							name : 'albumID'
+						}, {
+							name : 'albumName'
+						}, {
+							name : 'album_create_date'
+						}, {
+							name : 'album_thumbnail'
+						}]
+			}
+		});

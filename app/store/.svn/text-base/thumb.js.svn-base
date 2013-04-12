@@ -1,0 +1,27 @@
+/**
+ * @author 진우 김
+ */
+Ext.define('CognectTeacher.store.Thumb', {
+			extend : 'Ext.data.Store',
+			// This custom store directly references the model, and is created
+			// with a proxy object that is simply used to
+			// inform the Sencha Touch 2.0 framework how to get the data. In
+			// this case a local .json file is used to
+			// populate the client-side cache of model objects. A store can have
+			// sorters, filters, and groupers. This one has
+			// a grouper as you can see. It is referenced directly by the
+			// Ext.application's 'stores' array in the app.js file.
+			//
+			config : {
+				model : 'CognectTeacher.model.Thumb',
+				autoLoad : true,
+				/*
+				 * sorters: 'class', grouper: { groupFn: function(record) {
+				 * return record.get('class')[0]; } },
+				 */
+				proxy : {
+					type : 'ajax',
+					url : CognectTeacher.config.local + '/services/images.json'
+				}
+			}
+		});

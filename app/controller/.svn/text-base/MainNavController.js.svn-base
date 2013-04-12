@@ -1,0 +1,43 @@
+/**
+ * @author 진우 김
+ */
+Ext.define('CognectParent.controller.MainNavController', {
+			extend : 'Ext.app.Controller',
+
+			config : {
+				refs : {
+					// AlbumListView : '#kidalbumlist',
+					Homes : '#kidCarousel'
+				},
+
+				control : {
+					Homes : {
+						select : 'onChildSelected' // use the appropriate event
+					}
+				}
+			},
+
+			onChildSelected : function(list, record) {
+
+				var tmpId = {
+					kid_id : record.data.kid_id
+				};
+				/**
+				 * Dynamically generating the store by appending the url
+				 * parameters
+				 * 
+				 * @var tmpIds
+				 */
+
+				Ext.getStore('MyJsonStore').getProxy().setExtraParams(tmpId);
+				Ext.getStore('MyJsonStore').load();
+
+				var paneltab = Ext.create('CognectParent.view.MainNav');
+
+				Ext.getCmp('HomePageView').destroy();
+
+				Ext.Viewport.add(paneltab);
+
+			}
+
+		})

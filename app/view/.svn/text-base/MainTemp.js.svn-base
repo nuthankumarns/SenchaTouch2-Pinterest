@@ -1,0 +1,57 @@
+/**
+ * @author 진우 김
+ */
+/**
+ * @author 진우 김
+ */
+Ext.define('CognectTeacher.view.MainTemp', {
+			extend : 'Ext.navigation.View',
+			xtype : 'maintemp',
+			id : 'maintempid',
+
+			requires : ['CognectTeacher.view.teacher.temp.ClassAlbum',
+					'CognectTeacher.view.teacher.temp.ClassGrid',
+					'CognectTeacher.view.teacher.temp.Decision',
+					'CognectTeacher.view.teacher.temp.Temp'],
+
+			config : {
+				autoDestroy : false,
+
+				/*
+				 * tabBar : { docked : 'bottom', width : '5em', layout : { pack :
+				 * 'center', align : 'center' }, docked : 'bottom' },
+				 */
+				navigationBar : {
+					ui : 'sencha',
+					items : [{
+								xtype : 'button',
+								id : 'homeButton',
+								text : 'Home',
+								align : 'left',
+								// hidden: true,
+								hideAnimation : Ext.os.is.Android ? false : {
+									type : 'fadeOut',
+									duration : 200
+								},
+								showAnimation : Ext.os.is.Android ? false : {
+									type : 'fadeIn',
+									duration : 200
+								},
+								handler : function() {
+									Ext.getCmp('maintempid').destroy();
+
+									// Ext.getCmp('cardLayout').show();
+									this.pnl = Ext
+											.create('CognectTeacher.view.Card');
+									// Ext.getCmp('maintempid').hide();
+									Ext.Viewport.add(this.pnl)
+
+								}
+							}]
+				},
+
+				items : [{
+							xtype : 'temp'
+						}]
+			}
+		});

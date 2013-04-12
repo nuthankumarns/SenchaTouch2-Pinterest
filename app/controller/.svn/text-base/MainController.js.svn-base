@@ -1,0 +1,149 @@
+/**
+ * @author 진우 김
+ */
+Ext.define('CognectTeacher.controller.MainController', {
+			extend : 'Ext.app.Controller',
+			requires: ['Ext.device.Notification'],
+			config : {
+				refs : {
+					main : 'mainboot',
+					card : 'card'
+
+				},
+				control : {
+					main : {
+						push : 'onMainPush',
+						pop : 'onMainPop'
+
+					},
+					card : {
+						tap : 'onPanelSelect'
+					}
+				}
+			},
+			onMainPush : function(view, item, record) {
+				// this.showHomeButton()
+				console.log('push')
+				if (item.xtype == 'maintemp' || item.xtype == 'mainview') {
+
+					this.showHomeButton();
+				} else {
+					this.hideHomeButton();
+				}
+
+			},
+
+			onMainPop : function(view, item, record) {
+				console.log('pop')
+
+				this.hideHomeButton();
+				if (item.xtype == 'maintemp' || item.xtype == 'mainview') {
+
+					this.showHomeButton();
+				} else {
+					this.hideHomeButton();
+				}
+
+				console.log(item)
+			},
+			onPanelSelect : function(view, list, index, node, record) {
+				imageid = list.getAttribute('id')
+					Ext.getStore('Cognect').load();
+				console.log(Ext.Anim)
+				/*
+				 * Ext.Anim.run(Ext.getCmp('cardLayout'), 'slide', { direction :
+				 * 'left' });
+				 */
+				// Ext.getCmp('cardLayout').destroy();
+				switch (imageid) {
+					case 'image3' :
+						var showMain = 'CognectTeacher.view.Main';
+						this.generateView(showMain);
+						break;
+					case 'image4' :
+						var showMain = 'CognectTeacher.view.MainTemp';
+						this.generateView(showMain);
+						break;
+					default :
+					//	Ext.Msg.alert('', 'Hello World')
+						Ext.device.Notification.vibrate();
+						Ext.device.Notification.show({
+									message : 'Communication',
+									title : 'coming Soon',
+								//	buttons : Ext.Msg.OK,
+									buttons :  Ext.Msg.OK,
+									callback : function(button) {
+										if (button == "ok") {
+											console.log('Verified');
+										} else {
+											console.log('Nope.');
+										}
+									}
+								});
+						break;
+				}
+				console.log('not')
+
+				// if (!this.showMain) {
+
+				// }
+
+				// Bind the record onto the show contact view
+				// this.showMain.setRecord(record);
+
+				// Push the show contact view into the navigation view
+				// this.getMain().push(this.showMain);
+
+			},
+			generateView : function(showMain) {
+				console.log(showMain)
+				Ext.getCmp('cardLayout').destroy();
+				Ext.Viewport.add({
+							xclass : showMain,
+							showAnimation : {
+								type : 'fadeIn',
+								duration : 1000,
+								direction : 'up'
+							}
+						})
+			},
+			showHomeButton : function() {
+				var homeButton = this.getHomeButton();
+
+				if (!homeButton.isHidden()) {
+					return;
+				}
+
+				homeButton.show();
+			},
+
+			hideHomeButton : function() {
+				var homeButton = this.getHomeButton();
+
+				/*
+				 * if (homeButton.isHidden()) { return; }
+				 */
+
+				// homeButton.hide();
+			},
+			goToView : function(view, list, index, node, record) {
+				console.log('view')
+
+				mainView = this.getMain();
+				secondView = this.getSecond();
+				mainView.setActiveItem(secondView);
+
+				/*
+				 * Ext.Anim.run(Ext.getCmp('mainbootid'), 'slide', { direction:
+				 * 'left', duration: 1000 })
+				 */
+				// Ext.getCmp('mainbootid').destroy();
+				// this.pnl = Ext.create('CognectTeacher.view.MainTemp');
+				// this.pnl.setRecord(record);
+				// Ext.Viewport.add(this.pnl)
+				// Push the show contact view into the navigation view
+				// this.getMain().push(this.pnl);
+				// this.getMain().setActiveItem(this.pnl);
+			}
+
+		})

@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/Cognect/!svn/ver/17/CognectApp/www/sdk/microloader
+END
+testing.js
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/Cognect/!svn/ver/17/CognectApp/www/sdk/microloader/testing.js
+END
+development.js
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/Cognect/!svn/ver/17/CognectApp/www/sdk/microloader/development.js
+END
+production.js
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/Cognect/!svn/ver/17/CognectApp/www/sdk/microloader/production.js
+END

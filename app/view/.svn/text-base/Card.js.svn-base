@@ -1,0 +1,109 @@
+Ext.define('CognectTeacher.view.Card', {
+	extend : 'Ext.navigation.View',
+	xtype : 'card',
+	id : 'cardLayout',
+	requires : ['CognectTeacher.view.MainTemp', 'CognectTeacher.view.Main','Ext.device.Notification'],
+
+	// requires : ['teacher.view.NestedList', 'Ext.dataview.NestedList'],
+
+	config : {
+		fullscreen : true,
+		navigationBar: false,
+		scrollable : true,
+		dragabble : true,
+		centered : true,
+		layout : 'card',
+		items : [{
+			xtype : 'panel',
+			docked : 'top',
+			html : "<img width='320px'  id='image1' src='images/home-screen-01_03.png'/>",
+
+			// height : 440,
+			// width : 480,
+			listeners : {
+				touchstart : {
+					element : 'element',
+					fn : function() {
+
+					}
+				}
+			}
+		}, {
+			xtype : 'panel',
+			docked : 'top',
+			html : "<img width='320px' id='image2' src='images/home-screen-01_06.png'/>",
+
+			// height : 130,
+			// width : 480,
+			listeners : {
+				touchstart : {
+					element : 'element',
+					fn : function() {
+
+					}
+				}
+			}
+		}, {
+
+			xtype : 'panel',
+			docked : 'left',
+			html : "<img width='160px' id='image3' src='images/home-screen-01_08.png'/>",
+
+			// height : 286,
+			// width : 304.5,
+			listeners : {
+				touchstart : {
+					element : 'element',
+					fn : function(list, index, node, record) {
+
+					}
+				}
+			}
+		}, {
+
+			xtype : 'panel',
+			docked : 'left',
+			html : "<img width='160px' id='image4' src='images/home-screen-01_10.png'/>",
+
+			// height : 286,
+			// width : 304.5,
+			listeners : {
+				touchstart : {
+					element : 'element',
+					fn : function() {
+
+					}
+				}
+			}
+		}]
+	},
+	initialize : function() {
+		this.relayEvents(this.element, ['tap']);
+	}
+});
+/*
+ * Ext.define('teacher.view.Card', { extend: 'Ext.Container', config: {
+ * fullscreen: true, layout: 'hbox', items: [ { docked: 'top', src:
+ * 'http://localhost/images/logo3w.png', height: 'fit', xtype:'panel', control: {
+ * 'button': { tap: 'onButtonTap' } },
+ * 
+ * onButtonTap: function() { var test = "one", bar = 10, foo = (bar * 9) + '
+ * one';
+ * 
+ * console.log('tapped'); } }, { xtype: 'panel', html: 'message list', flex: 1 }, {
+ * xtype: 'panel', html: 'message preview', flex: 2 } ] } });
+ */
+
+/*
+ * Ext.define('Sample.view.DashboardView', { extend: 'Ext.TabPanel', config: {
+ * fullscreen: true, tabBarPosition: 'bottom', items: [ { xtype: 'container',
+ * title: 'Dashboard', iconCls: 'home' }, { xtype: 'profileView', title:
+ * 'Constituents', iconCls: 'user' }, { xtype: 'container', title: 'Groups',
+ * iconCls: 'arrow_left' }, { xtype: 'container', title: 'Reports', iconCls:
+ * 'arrow_up' }, { xtype: 'container', title: 'Settings', iconCls: 'settings' } ] }
+ * 
+ * 
+ * });
+ * 
+ * Ext.create('Sample.view.DashboardView', { fullscreen: true });
+ */

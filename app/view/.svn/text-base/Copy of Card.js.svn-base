@@ -1,0 +1,139 @@
+Ext.define('CognectTeacher.view.Card', {
+	extend : 'Ext.Container',
+	// requires:'Ext.navigation.View',
+	xtype : 'card',
+	id : 'cardLayout',
+
+	// requires : ['teacher.view.NestedList', 'Ext.dataview.NestedList'],
+
+	config : {
+		fullscreen : true,
+		scrollable : true,
+		centered : true,
+		layout : 'hbox',
+		animation : {
+			type : 'slide',
+			direction : 'left'
+		},
+
+		items : [{
+			xtype : 'panel',
+			docked : 'top',
+			html : "<img width='320px' src='images/home-screen-01_03.png'/>",
+			// height : 440,
+			// width : 480,
+			listeners : {
+				touchstart : {
+					element : 'element',
+					fn : function() {
+						Ext.device.Notification.show({
+									message : 'Communication Teacher to Teacher',
+									title : 'coming Soon',
+									buttons : Ext.Msg.OK,
+									callback : function(button) {
+										if (button == "ok") {
+											console.log('Verified');
+										} else {
+											console.log('Nope.');
+										}
+									}
+								});
+					}
+				}
+			}
+		}, {
+			xtype : 'panel',
+			docked : 'top',
+			html : "<img width='320px' src='images/home-screen-01_06.png'/>",
+			// height : 130,
+			// width : 480,
+			listeners : {
+				touchstart : {
+					element : 'element',
+					fn : function() {
+						Ext.device.Notification.show({
+									message : 'Communication Parent to Teacher',
+									title : 'coming Soon',
+									buttons : Ext.Msg.OK,
+									callback : function(button) {
+										if (button == "ok") {
+											console.log('Verified');
+										} else {
+											console.log('Nope.');
+										}
+									}
+								});
+					}
+				}
+			}
+		}, {
+
+			xtype : 'panel',
+			docked : 'left',
+			html : "<img width='160px' src='images/home-screen-01_08.png'/>",
+			// height : 286,
+			// width : 304.5,
+			listeners : {
+				touchstart : {
+					element : 'element',
+					fn : function(list, index, node, record) {
+
+						var paneltab = Ext.create('CognectTeacher.view.Main');
+						Ext.getCmp('cardLayout').destroy();
+						Ext.Viewport.add(paneltab);
+
+					}
+				}
+			}
+		}, {
+
+			xtype : 'panel',
+			docked : 'left',
+			html : "<img width='160px' src='images/home-screen-01_10.png'/>",
+			// height : 286,
+			// width : 304.5,
+			listeners : {
+				touchstart : {
+					element : 'element',
+					fn : function() {
+
+						var paneltab = Ext
+								.create('CognectTeacher.view.MainTemp');
+						Ext.getCmp('cardLayout').destroy();
+						Ext.Viewport.add(paneltab);
+
+					}
+				}
+			}
+		}]
+	}
+		/*
+		 * , initialize: function() { this.relayEvents(this.element, ['tap']); }
+		 */
+});
+/*
+ * Ext.define('teacher.view.Card', { extend: 'Ext.Container', config: {
+ * fullscreen: true, layout: 'hbox', items: [ { docked: 'top', src:
+ * 'http://localhost/images/logo3w.png', height: 'fit', xtype:'panel', control: {
+ * 'button': { tap: 'onButtonTap' } },
+ * 
+ * onButtonTap: function() { var test = "one", bar = 10, foo = (bar * 9) + '
+ * one';
+ * 
+ * console.log('tapped'); } }, { xtype: 'panel', html: 'message list', flex: 1 }, {
+ * xtype: 'panel', html: 'message preview', flex: 2 } ] } });
+ */
+
+/*
+ * Ext.define('Sample.view.DashboardView', { extend: 'Ext.TabPanel', config: {
+ * fullscreen: true, tabBarPosition: 'bottom', items: [ { xtype: 'container',
+ * title: 'Dashboard', iconCls: 'home' }, { xtype: 'profileView', title:
+ * 'Constituents', iconCls: 'user' }, { xtype: 'container', title: 'Groups',
+ * iconCls: 'arrow_left' }, { xtype: 'container', title: 'Reports', iconCls:
+ * 'arrow_up' }, { xtype: 'container', title: 'Settings', iconCls: 'settings' } ] }
+ * 
+ * 
+ * });
+ * 
+ * Ext.create('Sample.view.DashboardView', { fullscreen: true });
+ */
